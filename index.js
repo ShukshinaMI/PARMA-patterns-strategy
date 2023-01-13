@@ -8,34 +8,35 @@ Shipping.prototype = {
   setStrategy: function (company) {
     this.company = company;
   },
-  calculate: function (package) {
-    return this.company.calc(package);
+
+  calculate: function (zip) {
+    return this.company.calc(zip);
   },
 };
 
 const UPS = function () {
-  this.calc = function (package) {
+  this.calc = function (zip) {
     const rate = 45.95;
-    return `$${rate} x ${package.weight} = ${rate * weight}`;
+    return `$${rate * zip.weight}`;
   };
 };
 
 const USPS = function () {
-  this.calc = function (package) {
+  this.calc = function (zip) {
     const rate = 39.4;
-    return `$${rate} x ${package.weight} = ${rate * weight}`;
+    return `$${rate * zip.weight}`;
   };
 };
 
 const Fedex = function () {
-  this.calc = function (package) {
+  this.calc = function (zip) {
     const rate = 43.2;
-    return `$${rate} x ${package.weight} = ${rate * weight}`;
+    return `$${rate * zip.weight}`;
   };
 };
 
 function runСomparison() {
-  const package = { from: '76712', to: '10012', weigth: l };
+  const zip = { from: '76712', to: '10012', weight: 2 };
 
   const ups = new UPS();
   const usps = new USPS();
@@ -44,13 +45,13 @@ function runСomparison() {
   const shipping = new Shipping();
 
   shipping.setStrategy(ups);
-  console.log('UPS Strategy: ' + shipping.calculate(package));
+  console.log('UPS Strategy: ' + shipping.calculate(zip));
 
   shipping.setStrategy(usps);
-  console.log('USPS Strategy: ' + shipping.calculate(package));
+  console.log('USPS Strategy: ' + shipping.calculate(zip));
 
   shipping.setStrategy(fedex);
-  console.log('Fedex Strategy: ' + shipping.calc(package));
+  console.log('Fedex Strategy: ' + shipping.calculate(zip));
 }
 
 runСomparison();
